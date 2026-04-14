@@ -35,7 +35,11 @@ public class MainController {
 
     void startSave() {
         System.out.println("Mentés...");
-        System.out.println(countChecked());
+        if(countChecked() == 5) {
+            Storage.writeContent(this.generateLine());
+        }else {
+            System.err.println("Hiba! 5 számot kell választanod!");
+        }        
     }
 
     int countChecked() {
@@ -46,5 +50,16 @@ public class MainController {
             }
         }
         return count;
+    }
+
+    String generateLine() {
+        StringBuilder sb = new StringBuilder();
+        for(CheckBox box : boxes) {
+            if(box.isSelected()) {
+                sb.append(box.getText());
+                sb.append(",");
+            }
+        }        
+        return sb.toString();
     }
 }
